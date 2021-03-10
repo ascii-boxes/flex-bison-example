@@ -1,5 +1,24 @@
+# IDE generated files
+.cproject
+.project
+/.idea/
+/coverage/
+
+# Jekyll generated (website) artifacts
+/.jekyll-metadata
+/_site/
+/_cache/
+/_support/
+
+# Build artifacts
+/out/
+*.o
+*.a
+/cmake-build-debug/
+
 calc
 calc.l
 calc.tab.c
 calc.tab.h
+calc.output
 lex.yy.c
