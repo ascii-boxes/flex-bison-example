@@ -1,16 +1,22 @@
-%option noyywrap
-
 %{
 #include <stdio.h>
 
-#define YY_DECL int yylex()
+/* #define YY_DECL int yylex() */
 
 #include "parser.h"
+/* better don't #include "lex.yy.h" */
 
 %}
 
+%option 8bit
+%option case-insensitive
+%option ecs
+/* %option nodefault */
 %option noinput
 %option nounput
+%option noyywrap
+%option warn
+%option yylineno
 
 %%
 

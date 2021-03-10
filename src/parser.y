@@ -3,9 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Don't include parser.h, as that's implicitly done already. */
+
 extern int yylex();
-extern int yyparse();
-extern FILE* yyin;
+/* extern int yyparse(); */
+extern FILE *yyin;
+extern int yylineno;
 
 void yyerror(const char* s);
 %}
@@ -68,6 +71,6 @@ expression: T_INT				{ $$ = $1; }
 
 
 void yyerror(const char* s) {
-	fprintf(stderr, "Parse error: %s\n", s);
+	fprintf(stderr, "Parse error in line %d: %s\n", yylineno, s);
 	exit(1);
 }
