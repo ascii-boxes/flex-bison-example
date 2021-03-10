@@ -1,7 +1,9 @@
 
-OUT_DIR    = out
-SRC_DIR    = ../src
-VPATH      = $(SRC_DIR)
+OUT_DIR = out
+SRC_DIR = ../src
+VPATH   = $(SRC_DIR)
+CC      = gcc
+CFLAGS  = -I. -I$(SRC_DIR) -Wall -W
 
 .PHONY: all clean
 
@@ -17,8 +19,12 @@ parser.tab.c parser.tab.h: parser.y
 lex.yy.c: lexer.l parser.tab.h
 	flex $<
 
-calc: lex.yy.c parser.tab.c parser.tab.h
-	gcc -o $@ parser.tab.c lex.yy.c
+parser.o: parser.y
+
+lex.yy.o: lex.yy.c parser.tab.h
+
+calc: parser.o lex.yy.o
+	$(CC) -o $@ $^
 
 clean:
 	rm -rf $(OUT_DIR)/
