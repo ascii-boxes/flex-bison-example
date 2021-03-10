@@ -1,12 +1,11 @@
 A small example of a calculator written with flex / bison.
 
-Compile using the `Makefile` 
+Build using the `Makefile`
 
     $ make
 
-or manually on Linux, follow this steps:
+then run like so:
 
-    $ bison -d calc.y
-    $ flex calc.l
-    $ gcc calc.tab.c lex.yy.c -o calc -lm
-    $ ./calc
+    $ out/calc
+
+Exit the calculator with `exit` command or *Ctrl-D*.
