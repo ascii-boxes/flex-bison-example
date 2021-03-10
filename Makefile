@@ -11,14 +11,14 @@ all: | $(OUT_DIR)
 $(OUT_DIR):
 	mkdir $(OUT_DIR)
 
-calc.tab.c calc.tab.h: calc.y
+parser.tab.c parser.tab.h: parser.y
 	bison -t -v -d $<
 
-lex.yy.c: calc.l calc.tab.h
+lex.yy.c: calc.l parser.tab.h
 	flex $<
 
-calc: lex.yy.c calc.tab.c calc.tab.h
-	gcc -o $@ calc.tab.c lex.yy.c
+calc: lex.yy.c parser.tab.c parser.tab.h
+	gcc -o $@ parser.tab.c lex.yy.c
 
 clean:
 	rm -rf $(OUT_DIR)/
