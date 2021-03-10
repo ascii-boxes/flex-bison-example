@@ -14,7 +14,7 @@ $(OUT_DIR):
 parser.tab.c parser.tab.h: parser.y
 	bison -t -v -d $<
 
-lex.yy.c: calc.l parser.tab.h
+lex.yy.c: lexer.l parser.tab.h
 	flex $<
 
 calc: lex.yy.c parser.tab.c parser.tab.h
