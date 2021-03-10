@@ -13,17 +13,17 @@ all: | $(OUT_DIR)
 $(OUT_DIR):
 	mkdir $(OUT_DIR)
 
-parser.tab.c parser.tab.h: parser.y
-	bison -t -v -d $<
+parser.c parser.h: parser.y
+	bison -t -v -d -o parser.c $<
 
-lex.yy.c: lexer.l parser.tab.h
-	flex $<
+lex.yy.c lex.yy.h: lexer.l parser.h
+	flex --header-file=lex.yy.h $<
 
-parser.o: parser.y
+parser.o: parser.c
+lex.yy.o: lex.yy.c parser.h
+main.o: main.c parser.h lex.yy.h
 
-lex.yy.o: lex.yy.c parser.tab.h
-
-calc: parser.o lex.yy.o
+calc: main.o parser.o lex.yy.o
 	$(CC) -o $@ $^
 
 clean:
