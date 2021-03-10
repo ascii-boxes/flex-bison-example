@@ -9,6 +9,9 @@
 
 %}
 
+%option noinput
+%option nounput
+
 %%
 
 [ \t]	; // ignore all whitespace
