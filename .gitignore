@@ -15,10 +15,3 @@
 *.o
 *.a
 /cmake-build-debug/
-
-calc
-calc.l
-calc.tab.c
-calc.tab.h
-calc.output
-lex.yy.c
