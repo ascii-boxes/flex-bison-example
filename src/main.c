@@ -6,11 +6,16 @@
 
 int main()
 {
-	yyin = stdin;
+	/* TODO pass argument to scanner, and get data back */
 
+    yyscan_t scanner;
+
+    yylex_init(&scanner);
+	yyset_in(stdin, scanner);
 	do {
-		yyparse();
-	} while(!feof(yyin));
+	    yyparse(scanner);   /* discard return code */
+	} while(!feof(stdin));
+    yylex_destroy(scanner);
 
 	return 0;
 }

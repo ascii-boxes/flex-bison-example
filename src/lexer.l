@@ -1,28 +1,28 @@
 %{
 #include <stdio.h>
 
-/* #define YY_DECL int yylex() */
-
 #include "parser.h"
 /* better don't #include "lex.yy.h" */
 
 %}
 
 %option 8bit
+%option bison-bridge
 %option case-insensitive
 %option ecs
-/* %option nodefault */
+%option nodefault
 %option noinput
 %option nounput
 %option noyywrap
+%option reentrant
 %option warn
 %option yylineno
 
 %%
 
 [ \t]	; // ignore all whitespace
-[0-9]+\.[0-9]+ 	{yylval.fval = atof(yytext); return T_FLOAT;}
-[0-9]+		{yylval.ival = atoi(yytext); return T_INT;}
+[0-9]+\.[0-9]+ 	{yylval->fval = atof(yytext); return T_FLOAT;}
+[0-9]+		{yylval->ival = atoi(yytext); return T_INT;}
 \n		{return T_NEWLINE;}
 "+"		{return T_PLUS;}
 "-"		{return T_MINUS;}

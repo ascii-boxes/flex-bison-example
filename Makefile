@@ -14,7 +14,7 @@ $(OUT_DIR):
 	mkdir $(OUT_DIR)
 
 parser.c parser.h: parser.y
-	bison -t -v -d -o parser.c $<
+	bison --warnings=all --debug --verbose -d -o parser.c $<
 
 lex.yy.c lex.yy.h: lexer.l parser.h
 	flex --header-file=lex.yy.h $<

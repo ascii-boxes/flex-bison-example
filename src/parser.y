@@ -2,16 +2,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "parser.h"
+#include "lex.yy.h"
 
-/* Don't include parser.h, as that's implicitly done already. */
 
-extern int yylex();
-/* extern int yyparse(); */
-extern FILE *yyin;
-extern int yylineno;
-
-void yyerror(const char* s);
+int yyerror(yyscan_t scanner, char *msg);
 %}
+
+
+%define api.pure true
+%pure-parser
+%lex-param {void *scanner}
+%parse-param {void *scanner}
 
 %union {
 	int ival;
@@ -28,11 +30,15 @@ void yyerror(const char* s);
 %type<ival> expression
 %type<fval> mixed_expression
 
+
+/* %initial-action ... */
+
 %start calculation
+
 
 %%
 
-calculation:
+calculation: %empty
 	   | calculation line
 ;
 
@@ -69,8 +75,8 @@ expression: T_INT				{ $$ = $1; }
 %%
 
 
-
-void yyerror(const char* s) {
-	fprintf(stderr, "Parse error in line %d: %s\n", yylineno, s);
-	exit(1);
+int yyerror(yyscan_t scanner, char *msg)
+{
+	fprintf(stderr, "parse error: %s in line %d\n", msg, yyget_lineno(scanner));
+    return 0;
 }
