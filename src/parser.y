@@ -21,7 +21,6 @@ int yyerror(pass_to_bison *bison_args, char *msg);
 
 
 %define api.pure true
-%pure-parser
 %lex-param {void *scanner}
 %parse-param {pass_to_bison *bison_args}
 
